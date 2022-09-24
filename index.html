@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style.css" />
+        <link
+            href="https://fonts.googleapis.com/css?family=Roboto"
+            rel="stylesheet"
+        />
+        <script src="script.js"></script>
+        <title>Library</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <h1>Library</h1>
+                <p>Created by <a href="https://github.com/dcv21">dcv21</a></p>
+            </div>
+            <div class="content">
+                <div class="book">
+                    <div>Status: Reading</div>
+                    <div class="info">
+                        <div class="title">foo</div>
+                        <div class="author">by bar</div>
+                        <div class="pages">100 pages</div>
+                    </div>
+                    <div class="options">
+                        <button class="mark_read">Mark As Read</button>
+                        <button class="delete">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <svg class="add_book" viewBox="0 0 24 24">
+            <path
+                fill="currentColor"
+                d="M17,13H13V17H11V13H7V11H11V7H13V11H17M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"
+            />
+        </svg>
+        <div class="modal">
+            <form>
+                <input id="title" name="title" type="text" placeholder="Title" required>
+                <input id="author" name="author" type="text" placeholder="Author" required>
+                <input id="pages" name="pages" type="number" placeholder="Number of pages" min="1" required>
+                <button type="submit">Add</button>
+            </form>
+        </div>
+        <div class="overlay"></div>
+    </body>
+</html>
