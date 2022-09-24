@@ -98,12 +98,12 @@ h1 {
     position: fixed;
     background-color: white;
     border-radius: 16px;
-    width: calc(80vh * 3 / 4);
-    height: 80vh;
+    width: max(calc(80vh * 3 / 4), 300px);
+    height: max(80vh, 400px);
     top: 50%;
     left: 50%;
-    margin-top: -40vh;
-    margin-left: calc(-80vh * 3 / 8);
+    margin-top: min(-40vh, -200px);
+    margin-left: min(calc(-80vh * 3 / 8), -150px);
     z-index: 99;
     visibility: hidden;
     display: flex;
