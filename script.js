@@ -1,13 +1,12 @@
 let myLibrary = [
-    {
-        title: "foo",
-        author: "bar",
-        pages: 100,
-        status: 0,
-    },
+    new Book(
+        "bar",
+        "foo",
+        100
+    )
 ];
 
-function Book(author, title, pages, status) {
+function Book(author, title, pages) {
     this.author = author;
     this.title = title;
     this.pages = pages;
@@ -15,80 +14,69 @@ function Book(author, title, pages, status) {
 }
 
 function addBookToLibrary(form) {
-    myLibrary.push(
-        new Book(
-            form.elements["author"].value,
-            form.elements["title"].value,
-            form.elements["pages"].value
-        )
+    const book = new Book(
+        form.elements["author"].value,
+        form.elements["title"].value,
+        form.elements["pages"].value
     );
+
+    myLibrary.push(book);
+
+    return book;
+}
+
+function renderBook(book) {
+    let div = document.createElement("div");
+    div.className = "book";
+    div.innerHTML += `<div>Status: ${
+        book.status ? "Completed" : "Reading"
+    }</div>`;
+
+    const info = document.createElement("div");
+    info.className = "info";
+    info.innerHTML += `<div class="title">${book.title}</div>`;
+    info.innerHTML += `<div class="author">by ${book.author}</div>`;
+    info.innerHTML += `<div class="pages">${book.pages} pages</div>`;
+
+    div.appendChild(info);
+
+    const options = document.createElement("div");
+    options.className = "options";
+
+    const markReadBtn = document.createElement("button");
+    markReadBtn.className = "mark_read";
+    markReadBtn.innerHTML = "Mark As Read";
+    markReadBtn.addEventListener("click", () => {
+        book.status = book.status ? 0 : 1;
+        div.querySelector("div:first-of-type").innerHTML = `<div>Status: ${
+            book.status ? "Completed" : "Reading"
+        }</div>`;
+    });
+
+    options.appendChild(markReadBtn);
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.className = "delete";
+    deleteBtn.innerHTML = "Delete";
+    deleteBtn.addEventListener("click", () => {
+        const index = myLibrary.indexOf(book);
+        myLibrary.splice(index, 1);
+        document.querySelector(".content").removeChild(div);
+    });
+
+    options.appendChild(deleteBtn);
+
+    div.appendChild(options);
+
+    return div;
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-    function refreshContent() {
-        const content = document.querySelector(".content");
-
-        content.innerHTML = "";
-
-        myLibrary.forEach((book) => {
-            content.innerHTML += `<div class="book"><div>Status: ${
-                book.status === 0 ? "Reading" : "Completed"
-            }</div><div class="info"><div class="title">${
-                book.title
-            }</div><div class="author">by ${
-                book.author
-            }</div><div class="pages">${
-                book.pages
-            } pages</div></div><div class="options"><button class="mark_read">Mark As Read</button><button class="delete">Delete</button></div></div>`;
-        });
-
-        const markReadBtn = content.querySelectorAll(".mark_read");
-        for (const element of markReadBtn) {
-            element.addEventListener("click", (event) => {
-                const targetElement = event.target;
-                const parentElement = targetElement.parentElement.parentElement;
-                const title = parentElement.querySelector(".title").innerHTML;
-                for (let i = 0; i < myLibrary.length; i++) {
-                    if (myLibrary[i].title === title) {
-                        myLibrary[i].status = myLibrary[i].status ^ 1;
-                        if (myLibrary[i].status === 0) {
-                            parentElement.querySelector(
-                                "div:first-of-type"
-                            ).innerHTML = "Status: Reading";
-                        } else {
-                            myLibrary[i].status = 1;
-                            parentElement.querySelector(
-                                "div:first-of-type"
-                            ).innerHTML = "Status: Completed";
-                        }
-                    }
-                }
-            });
-        }
-
-        const deleteBtn = content.querySelectorAll(".delete");
-        for (const element of deleteBtn) {
-            element.addEventListener("click", (event) => {
-                const targetElement = event.target;
-
-                const title =
-                    targetElement.parentElement.parentElement.querySelector(
-                        ".title"
-                    ).innerHTML;
-
-                for (let i = 0; i < myLibrary.length; i++) {
-                    if (myLibrary[i].title === title) {
-                        myLibrary.splice(i, 1);
-                        break;
-                    }
-                }
-
-                refreshContent();
-            });
-        }
+    const div = document.querySelector(".content");
+    div.innerHTML = "";
+    for (let i = 0; i < myLibrary.length; i++) {
+        div.appendChild(renderBook(myLibrary[i]));
     }
-
-    refreshContent();
 
     const overlay = document.querySelector(".overlay");
 
@@ -106,10 +94,10 @@ window.addEventListener("DOMContentLoaded", () => {
 
     form.addEventListener("submit", (event) => {
         event.preventDefault();
-        addBookToLibrary(form);
+        const book = addBookToLibrary(form);
         document.querySelector(".modal").className = "modal";
         document.querySelector(".overlay").className = "overlay";
         document.querySelector("form").reset();
-        refreshContent();
+        document.querySelector(".content").appendChild(renderBook(book));
     });
 });

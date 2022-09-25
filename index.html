@@ -17,20 +17,7 @@
                 <h1>Library</h1>
                 <p>Created by <a href="https://github.com/dcv21">dcv21</a></p>
             </div>
-            <div class="content">
-                <div class="book">
-                    <div>Status: Reading</div>
-                    <div class="info">
-                        <div class="title">foo</div>
-                        <div class="author">by bar</div>
-                        <div class="pages">100 pages</div>
-                    </div>
-                    <div class="options">
-                        <button class="mark_read">Mark As Read</button>
-                        <button class="delete">Delete</button>
-                    </div>
-                </div>
-            </div>
+            <div class="content"></div>
         </div>
         <svg class="add_book" viewBox="0 0 24 24">
             <path
@@ -40,9 +27,28 @@
         </svg>
         <div class="modal">
             <form>
-                <input id="title" name="title" type="text" placeholder="Title" required>
-                <input id="author" name="author" type="text" placeholder="Author" required>
-                <input id="pages" name="pages" type="number" placeholder="Number of pages" min="1" required>
+                <input
+                    id="title"
+                    name="title"
+                    type="text"
+                    placeholder="Title"
+                    required
+                />
+                <input
+                    id="author"
+                    name="author"
+                    type="text"
+                    placeholder="Author"
+                    required
+                />
+                <input
+                    id="pages"
+                    name="pages"
+                    type="number"
+                    placeholder="Number of pages"
+                    min="1"
+                    required
+                />
                 <button type="submit">Add</button>
             </form>
         </div>
