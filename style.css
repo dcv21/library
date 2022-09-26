@@ -13,7 +13,7 @@ body {
     grid-template-rows: 1fr 7fr;
 }
 
-.header {
+.container > header {
     display: flex;
     align-items: center;
     border-bottom: solid;
@@ -24,7 +24,7 @@ h1 {
     font-size: 48px;
 }
 
-.content {
+.container > main {
     padding-top: 32px;
     padding-bottom: 32px;
     display: flex;
@@ -44,7 +44,13 @@ h1 {
     grid-template-rows: 1fr 8fr 1fr;
 }
 
-.info {
+.book header {
+    align-self: center;
+    border-bottom: solid;
+    padding-bottom: 4px;
+}
+
+.book main {
     display: flex;
     align-self: center;
     flex-direction: column;
@@ -62,21 +68,21 @@ h1 {
     font-style: italic;
 }
 
-.options {
+.book footer {
     display: flex;
 }
 
-.options button {
+.book footer button {
     border: none;
     color: white;
     width: 50%;
 }
 
-.options > button:first-of-type {
+.book footer > button:first-of-type {
     background-color: gray;
 }
 
-.options > button:last-of-type {
+.book footer > button:last-of-type {
     background-color: black;
 }
 
@@ -90,7 +96,7 @@ h1 {
 }
 
 .add_book:hover,
-.options button:hover {
+.book footer button:hover {
     cursor: pointer;
 }
 

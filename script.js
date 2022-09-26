@@ -28,40 +28,40 @@ function addBookToLibrary(form) {
 function renderBook(book) {
     let div = document.createElement("div");
     div.className = "book";
-    div.innerHTML += `<div>Status: ${
+    div.innerHTML += `<header>Status: ${
         book.status ? "Completed" : "Reading"
-    }</div>`;
+    }</header>`;
 
-    const info = document.createElement("div");
-    info.className = "info";
+    const info = document.createElement("main");
     info.innerHTML += `<div class="title">${book.title}</div>`;
     info.innerHTML += `<div class="author">by ${book.author}</div>`;
     info.innerHTML += `<div class="pages">${book.pages} pages</div>`;
 
     div.appendChild(info);
 
-    const options = document.createElement("div");
-    options.className = "options";
+    const options = document.createElement("footer");
 
     const markReadBtn = document.createElement("button");
     markReadBtn.className = "mark_read";
+    markReadBtn.type = "button";
     markReadBtn.innerHTML = "Mark As Read";
     markReadBtn.addEventListener("click", () => {
         book.status = book.status ? 0 : 1;
-        div.querySelector("div:first-of-type").innerHTML = `<div>Status: ${
+        div.querySelector("header").innerHTML = `Status: ${
             book.status ? "Completed" : "Reading"
-        }</div>`;
+        }`;
     });
 
     options.appendChild(markReadBtn);
 
     const deleteBtn = document.createElement("button");
     deleteBtn.className = "delete";
+    deleteBtn.type = "button";
     deleteBtn.innerHTML = "Delete";
     deleteBtn.addEventListener("click", () => {
         const index = myLibrary.indexOf(book);
         myLibrary.splice(index, 1);
-        document.querySelector(".content").removeChild(div);
+        document.querySelector("main").removeChild(div);
     });
 
     options.appendChild(deleteBtn);
@@ -72,7 +72,7 @@ function renderBook(book) {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-    const div = document.querySelector(".content");
+    const div = document.querySelector("main");
     div.innerHTML = "";
     for (let i = 0; i < myLibrary.length; i++) {
         div.appendChild(renderBook(myLibrary[i]));
@@ -98,6 +98,6 @@ window.addEventListener("DOMContentLoaded", () => {
         document.querySelector(".modal").className = "modal";
         document.querySelector(".overlay").className = "overlay";
         document.querySelector("form").reset();
-        document.querySelector(".content").appendChild(renderBook(book));
+        document.querySelector("main").appendChild(renderBook(book));
     });
 });
