@@ -1,17 +1,39 @@
+class Book {
+    constructor(author, title, pages) {
+        this._author = author;
+        this._title = title;
+        this._pages = pages;
+        this._status = 0;
+    }
+
+    get author() {
+        return this._author;
+    }
+
+    get title() {
+        return this._title;
+    }
+
+    get pages() {
+        return this._pages;
+    }
+
+    get status() {
+        return this._status;
+    }
+
+    changeStatus() {
+        this._status = this._status ^ 1;
+    }
+}
+
 let myLibrary = [
     new Book(
-        "bar",
         "foo",
+        "bar",
         100
     )
 ];
-
-function Book(author, title, pages) {
-    this.author = author;
-    this.title = title;
-    this.pages = pages;
-    this.status = 0;
-}
 
 function addBookToLibrary(form) {
     const book = new Book(
@@ -46,7 +68,7 @@ function renderBook(book) {
     markReadBtn.type = "button";
     markReadBtn.innerHTML = "Mark As Read";
     markReadBtn.addEventListener("click", () => {
-        book.status = book.status ? 0 : 1;
+        book.changeStatus();
         div.querySelector("header").innerHTML = `Status: ${
             book.status ? "Completed" : "Reading"
         }`;
